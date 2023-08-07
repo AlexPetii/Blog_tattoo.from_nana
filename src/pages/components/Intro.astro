@@ -1,0 +1,120 @@
+---
+import paint from "/paint.png"
+---
+
+<div class="relative mx-12 flex flex-col items-center justify-center xl:flxe-row xl:gap-36" 
+>
+    <div>
+    <h1 class="text-xl">
+        Step into the Enigmatic Realm of Nana's <span class="font-bold">Ink & Anime Fusion!</span>
+    </h1>
+    <div class="relative">
+        <svg class="absolute h-full w-full overflow-visible">
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style={{ stopColor: "#DC3A2B", stopOpacity: 1 }}
+              ></stop>
+              <stop offset="100%" style={{ stopColor: "#E18510", stopOpacity: 1 }}
+              ></stop>
+            </linearGradient>
+          </defs>
+          <path
+            id="border-path"
+            fill="none"
+            stroke="url(#gradient)"
+            stroke-width="4"></path>
+        </svg>
+            
+        <p id="anim-p" class="p-6 text-lg">
+            Prepare to be entranced by<span class="font-bold text-primary"> Nana's </span>captivating corner of the virtual cosmos, 
+            where the fusion of darkly intricate black work and the spirited essence of anime come to life in breathtaking harmony.<br /><br />
+            Indulge in a mesmerizing odyssey through Nana's ink-stained wonders, 
+            where each creation is a testament to boundless imagination. 
+            Join in the occasional artistic escapade that promises surprises beyond your imagination!<br /><br />
+            Prepare to be enchanted by the unexpected artistic revelations that unfold within the digital tapestry of Nana's universe. 
+            With each visit, you'll delve into a realm of exploration that will leave you spellbound and yearning for more.
+        </p>
+    </div>
+    <div class="flex justify-center pt-12 text-center mb-12 xl:gap-12">
+        <div class="w-32">
+            <h2>Post</h2>
+            <p id="art-counter" class="text-xl font-bold">1.7k</p>
+        </div>
+        
+        <div class="w-32">
+            <h2>Instagram</h2>
+            <p id="instagram-counter" class="text-xl font-bold">9.1k</p>
+        </div>
+        
+        <div class="w-32">
+            <h2>View</h2>
+            <p id="view-counter" class="text-xl font-bold">731</p>
+        </div>
+    </div>
+</div>
+
+    <div class="relative">
+        <img class="w-full" src="/portrait.jpg" alt="Nana portrait" />
+    </div>
+</div>
+
+<div class="mt-12 h-4 w-full bg-black"></div>
+
+<style>
+    #border-path{
+        animation: draw 1s forwards 1s ease-out
+    }
+    @keyframes draw {
+        to {
+            stroke-dasharray: 0;
+        }
+    }
+</style>
+
+<script>
+    function updatePatch(){
+        const textMain = document.querySelector("#anim-p") as HTMLElement
+        const path = document.querySelector("#border-path") as SVGAElement
+
+        if(textMain && path){
+            path.setAttribute(
+                `d`, 
+                `M0,0 
+                V${textMain.offsetHeight} 
+                H${textMain.offsetWidth} v${
+                textMain.offsetHeight / 2
+            }`)
+        }
+        const pathLength = path.getTotalLength()
+
+        path.style.strokeDasharray = pathLength.toString()
+        path.style.strokeDashoffset = pathLength.toString()
+    }
+
+    function incrementCounter(
+        selector: string, 
+        current: number, 
+        target: number, 
+        duration: number, 
+        letter: string = ""
+        ){
+            let counter = document.getElementById(selector)
+            let stepTime = Math.abs(Math.floor(duration / target))
+            if(current < target && counter){
+                current++
+                counter.innerText = current.toString() + letter
+                setTimeout(() => 
+                incrementCounter(selector, current, target, duration, letter), stepTime
+                )
+            }
+    }
+
+
+    //increment 
+    incrementCounter("art-counter", 0, 1.7, 1000, "k")
+    incrementCounter("instagram-counter", 0, 9.1, 1000, "k")
+    incrementCounter("view-counter", 0, 731, 1000)
+
+    window.addEventListener("DOMContentLoaded", updatePatch)
+    window.addEventListener("resize", updatePatch)
+</script>
