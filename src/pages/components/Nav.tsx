@@ -40,12 +40,19 @@ export default function Nav(){
              stroke="#282828" 
              strokeLinecap="round"/>
             </svg>
-            <div>
-                <img src="/avatar.jpg" alt="Profile picture of Nana"
-                width="30"
-                />
-            </div>
-            
+
+            <motion.div 
+                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: 25 }}
+                transition={{delay: 0.3}}
+                className="flex gap-12">
+                <img width="30px" src="/avatar.jpg" alt="Profile picture of Nana"/>
+                <motion.div className="hidden xl:flex gap-12 item-center">
+                <img width="30px" src="public/instagram.png" alt="instagram account"></img>
+                <img width="30px" src="public/telegram.png" alt="telegram account"></img>
+                <img width="30px" src="public/youtube.png" alt="youtube video"></img>
+                </motion.div>
+            </motion.div>
             {/* title page */}
             
             <h1 className="text-lg font-bold">
@@ -53,6 +60,7 @@ export default function Nav(){
             </h1>
 
             {/* Check if we are on mobile or not */}
+            
             {matches && (
             <div className="flex gap-12">
                 <a href="/">Home</a>
